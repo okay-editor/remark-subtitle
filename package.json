@@ -1,7 +1,7 @@
 {
   "name": "@imarkjs/remark-subtitle",
   "version": "1.0.0",
-  "description": "",
+  "description": "an extension of `unifiedjs` to enable subtitle syntax.",
   "exports": "./index.js",
   "files": [
     "lib/",
@@ -13,7 +13,7 @@
   },
   "keywords": [
     "unifiedjs",
-    "code",
+    "subtitle",
     "markdown",
     "mdast"
   ],
