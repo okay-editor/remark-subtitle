@@ -1,5 +1,6 @@
-import {subtitle} from './syntax/syntax.js'
-import {subtitleFromMarkdown, subtitleToMarkdown} from './lib/util.js'
+import { lrc } from './syntax/lrc.js'
+import { srt } from './syntax/srt.js'
+import { subtitleFromMarkdown, subtitleToMarkdown } from './lib/util.js'
 
 /**
  * Create an extension to use in `unified`.
@@ -18,7 +19,7 @@ export default function remarkSubtitle() {
     const toMarkdownExtensions =
         data.toMarkdownExtensions || (data.toMarkdownExtensions = [])
 
-    micromarkExtensions.push(subtitle())
+    micromarkExtensions.push(...[lrc(), srt()])
     fromMarkdownExtensions.push(subtitleFromMarkdown())
     toMarkdownExtensions.push(subtitleToMarkdown())
 
