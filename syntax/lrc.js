@@ -18,7 +18,7 @@
  */
 export function lrc() {
     return {
-        flow: { [91]: lrcText() }
+        text: { [91]: lrcText() }
     }
 }
 
@@ -93,7 +93,7 @@ export function lrcText() {
                 return nok(code)
             }
             /** end with `eof `or `\n` or next `[` */
-            if (null === code || -4 === code) {
+            if (null === code || -4 === code || 91 === code) {
                 effects.exit('lrc')
                 return ok(code)
             }
