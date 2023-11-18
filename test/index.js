@@ -5,16 +5,9 @@ import remarkSubtitle from '../index.js'
 import remarkCode from '@imarkjs/remark-code'
 
 const str = `
-
-# Code 
-\`\`\`lang meta
-code
-\`\`\`{{props}}
-
 # LRC
 
 [00:00:00-00:00:10]这是第一行字幕。
-
 [00:00:11-00:00:20]这是第二行字幕。
 
 # SRT
@@ -44,7 +37,7 @@ const processor1 = unified()
     .use(remarkSubtitle)
     .use(remarkCode)
 const ast = processor1.parse(str)
-console.log('ast ->', ast)
+console.log('ast ->', JSON.stringify(ast))
 
 const processor2 = unified()
     .use(remarkParse)
