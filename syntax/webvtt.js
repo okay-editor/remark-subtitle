@@ -10,37 +10,37 @@
  */
 
 /**
- * Create an extension for `micromark` to enable srt syntax.
+ * Create an extension for `micromark` to enable webvtt syntax.
  *
  * @returns {Extension}
  *   Extension for `micromark` that can be passed in `extensions`, to
- *   enable srt syntax.
+ *   enable webvtt syntax.
  */
-export function srt() {
+export function webvtt() {
     return {
         flow: {
-            [48]: srtText(),
-            [49]: srtText(),
-            [50]: srtText(),
-            [51]: srtText(),
-            [52]: srtText(),
-            [53]: srtText(),
-            [54]: srtText(),
-            [55]: srtText(),
-            [56]: srtText(),
-            [57]: srtText(),
+            [48]: webvttText(),
+            [49]: webvttText(),
+            [50]: webvttText(),
+            [51]: webvttText(),
+            [52]: webvttText(),
+            [53]: webvttText(),
+            [54]: webvttText(),
+            [55]: webvttText(),
+            [56]: webvttText(),
+            [57]: webvttText(),
         },
     }
 }
 
-export function srtText() {
+export function webvttText() {
 
     return {
         tokenize: tokenizeSrtText,
     }
 
     /**
-     * tokenize srt
+     * tokenize webvtt
      * 
      * @this {TokenizeContext}
      * @type {Tokenizer}
@@ -55,81 +55,81 @@ export function srtText() {
         return start
 
         function start(code) {
-            effects.enter('srt')
-            effects.enter('srtLine')
+            effects.enter('webvtt')
+            effects.enter('webvttLine')
             return line(code)
         }
 
 
         function line(code) {
             if (-4 === code) {
-                effects.exit('srtLine')
-                effects.enter('srtTime')
+                effects.exit('webvttLine')
+                effects.enter('webvttTime')
                 return time(code)
             }
             if (32 === code) {
-                effects.enter('srtIngore')
+                effects.enter('webvttIngore')
                 effects.consume(code)
-                effects.exit('srtIngore')
+                effects.exit('webvttIngore')
                 return line
             }
             if (null === code || code < 47 || code > 58) {
                 return nok(code)
             }
-            effects.enter('srtLineNumber')
+            effects.enter('webvttLineNumber')
             effects.consume(code)
-            effects.exit('srtLineNumber')
+            effects.exit('webvttLineNumber')
             return line
         }
 
         function time(code) {
             if (-4 === code && !sizeTime) {
                 sizeTime++
-                effects.enter('srtIngore')
+                effects.enter('webvttIngore')
                 effects.consume(code)
-                effects.exit('srtIngore')
+                effects.exit('webvttIngore')
                 return time
             }
             if (-4 === code) {
-                effects.exit('srtTime')
+                effects.exit('webvttTime')
                 return text(code)
             }
             if (32 === code) {
                 sizeTime++
-                effects.enter('srtIngore')
+                effects.enter('webvttIngore')
                 effects.consume(code)
-                effects.exit('srtIngore')
+                effects.exit('webvttIngore')
                 return time
             }
             if (null === code || (1 === sizeTime && -4 === code)) {
                 return nok(code)
             }
-            if (!(code === 44 || code === 45 || (code > 47 && code < 59) || code === 62)) {
+            if (!(code === 45 || code === 46 || (code > 47 && code < 59) || code === 62)) {
                 return nok(code)
             }
             sizeTime++
-            effects.enter('srtTimeProps')
+            effects.enter('webvttTimeProps')
             effects.consume(code)
-            effects.exit('srtTimeProps')
+            effects.exit('webvttTimeProps')
             return time
         }
 
         function text(code) {
             if (-4 === code && !sizeValue) {
                 sizeValue++
-                effects.enter('srtIngore')
+                effects.enter('webvttIngore')
                 effects.consume(code)
-                effects.exit('srtIngore')
+                effects.exit('webvttIngore')
                 return text
             }
             if (null === code || -4 === code) {
-                effects.exit('srt')
+                effects.exit('webvtt')
                 return ok(code)
             }
             sizeValue++
-            effects.enter('srtText')
+            effects.enter('webvttText')
             effects.consume(code)
-            effects.exit('srtText')
+            effects.exit('webvttText')
             return text
         }
     }

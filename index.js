@@ -1,5 +1,6 @@
 import { lrc } from './syntax/lrc.js'
 import { srt } from './syntax/srt.js'
+import { webvtt } from './syntax/webvtt.js'
 import { subtitleFromMarkdown, subtitleToMarkdown } from './lib/util.js'
 
 /**
@@ -19,7 +20,7 @@ export default function remarkSubtitle() {
     const toMarkdownExtensions =
         data.toMarkdownExtensions || (data.toMarkdownExtensions = [])
 
-    micromarkExtensions.push(...[lrc(), srt()])
+    micromarkExtensions.push(...[lrc(), srt(), webvtt()])
     fromMarkdownExtensions.push(subtitleFromMarkdown())
     toMarkdownExtensions.push(subtitleToMarkdown())
 
