@@ -1,5 +1,5 @@
 {
-  "name": "@imarkjs/remark-subtitle",
+  "name": "remark-subtitle",
   "description": "an extension of `unifiedjs` to enable subtitle syntax.",
   "version": "1.0.0",
   "license": "MIT",
